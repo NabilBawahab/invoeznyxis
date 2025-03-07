@@ -20,9 +20,3 @@ export async function continueWithGoogleAction(_, formData) {
 
   redirect(url.href);
 }
-
-export async function logoutAction(_, __) {
-  const cookieStore = await cookies();
-  cookieStore.delete("sessionId");
-  redirect("/login");
-}

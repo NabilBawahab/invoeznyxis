@@ -1,23 +1,15 @@
-import { prisma } from "@/utils/prisma";
-import { cookies } from "next/headers";
+import { auth } from "@/libs/auth";
 import { redirect } from "next/navigation";
-import React from "react";
+import LayoutClient from "./layoutClient";
+
+// for server action in layout
 
 export default async function Layout({ children }) {
-  const cookieStore = await cookies();
+  const session = await auth();
 
-  const sessionId = cookieStore.get("sessionId");
-  if (!sessionId) redirect("/login");
+  if (!session) {
+    redirect("/login");
+  }
 
-  const userDatabseSession = await prisma.session.findUnique({
-    where: {
-      id: sessionId.value,
-    },
-  });
-
-  if (!userDatabseSession) redirect("/login");
-  const currentDate = new Date();
-  if (userDatabseSession.expiredAt < currentDate) redirect("/login");
-
-  return <>{children}</>;
+  return <LayoutClient session={session}>{children}</LayoutClient>;
 }

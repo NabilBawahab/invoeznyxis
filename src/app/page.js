@@ -1,5 +1,11 @@
-import { Button } from "@heroui/react";
+import { auth } from "@/libs/auth";
+import { redirect } from "next/navigation";
 
-export default function Page() {
-  return <Button>HeroUI test</Button>;
+export default async function Page() {
+  const session = await auth();
+
+  if (!session) {
+    redirect("/login");
+  }
+  redirect("/dashboard");
 }

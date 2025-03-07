@@ -30,7 +30,7 @@ export async function registerAction(_, formData) {
 
   if (confirmedPassword !== password) {
     fieldsError.confirmedPassword =
-      "Confrimed password is not matched with your password";
+      "Confirmed password is not matched with your password";
 
     return {
       success: false,
@@ -51,7 +51,7 @@ export async function registerAction(_, formData) {
   } catch (error) {
     return {
       success: false,
-      message: "Oops, internal serve error",
+      message: "Oops, internal server error",
     };
   }
 
