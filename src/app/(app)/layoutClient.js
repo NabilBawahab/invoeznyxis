@@ -10,7 +10,9 @@ import { logoutAction } from "@/actions/logout-action";
 import { useActionState } from "react";
 import { createAvatar } from "@dicebear/core";
 import { glass } from "@dicebear/collection";
+
 import Image from "next/image";
+
 
 export default function LayoutClient({ children, session }) {
   const pathname = usePathname();
