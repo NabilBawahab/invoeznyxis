@@ -7,6 +7,7 @@ import { FaLock, FaUserTie } from "react-icons/fa";
 import { MdMail } from "react-icons/md";
 import { GrOrganization } from "react-icons/gr";
 import { redirect } from "next/navigation";
+
 export default function Page() {
   const [state, formAction, pending] = useActionState(registerAction, null);
   const [username, setUsername] = useState("");

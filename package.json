@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@dicebear/collection": "^9.2.2",
+    "@dicebear/core": "^9.2.2",
     "@heroui/react": "^2.7.4",
     "@prisma/client": "^6.4.1",
     "bcrypt": "^5.1.1",
