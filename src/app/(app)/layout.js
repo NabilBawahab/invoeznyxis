@@ -1,45 +1,15 @@
-"use client";
+import { auth } from "@/libs/auth";
+import { redirect } from "next/navigation";
+import LayoutClient from "./layoutClient";
 
-import SidebarItem from "@/components/sidebar-item";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { FaUserGear, FaFileInvoice } from "react-icons/fa6";
-import { FaHistory } from "react-icons/fa";
+// for server action in layout
 
-export default function Layout({ children }) {
-  const pathname = usePathname();
+export default async function Layout({ children }) {
+  const session = await auth();
 
-  return (
-    <div className="flex h-screen bg-gray-50">
-      <div className="w-[230px] bg-white shadow-md flex flex-col rounded-t-sm">
-        <Link
-          href="/dashboard"
-          className="text-lg font-semibold mb-6 px-4 py-2"
-        >
-          InvoEz.
-        </Link>
-        <section className="space-y-4">
-          <SidebarItem
-            icon={<FaUserGear />}
-            text="Profile"
-            active={pathname === "/dashboard/profile"}
-            href="/dashboard/profile"
-          />
-          <SidebarItem
-            icon={<FaFileInvoice />}
-            text="Create Invoice"
-            active={pathname === "/dashboard/create"}
-            href="/dashboard/create"
-          />
-          <SidebarItem
-            icon={<FaHistory />}
-            text="History"
-            active={pathname === "/dashboard/history"}
-            href="/dashboard/history"
-          />
-        </section>
-      </div>
-      <div className="p-6">{children}</div>
-    </div>
-  );
+  if (!session) {
+    redirect("/login");
+  }
+
+  return <LayoutClient session={session}>{children}</LayoutClient>;
 }
