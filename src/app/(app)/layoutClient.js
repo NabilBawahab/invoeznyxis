@@ -11,6 +11,9 @@ import { useActionState } from "react";
 import { createAvatar } from "@dicebear/core";
 import { glass } from "@dicebear/collection";
 
+import Image from "next/image";
+
+
 export default function LayoutClient({ children, session }) {
   const pathname = usePathname();
   const [state, formAction, pending] = useActionState(logoutAction, null);
@@ -31,7 +34,7 @@ export default function LayoutClient({ children, session }) {
         >
           InvoEz.
         </Link>
-        <section className="space-y-4">
+        <section className="space-y-4 p-2">
           <SidebarItem
             icon={<FaUserGear />}
             text="Profile"
@@ -54,17 +57,18 @@ export default function LayoutClient({ children, session }) {
         <section className="space-x-4 mt-auto flex px-4 py-6 items-center ">
           <Popover showArrow offset={10} placement="bottom">
             <PopoverTrigger>
-              <img
+              <Image
                 alt="image"
                 src={session.user.avatarURL || svg}
                 width={50}
+                height={50}
                 className="rounded-full hover:opacity-75 transition-opacity duration-300"
               />
             </PopoverTrigger>
-            <PopoverContent className="space-y-2 p-4">
+            <PopoverContent className="space-y-2 p-2 rounded-md">
               <Link
                 href={"/dashboard/profile"}
-                className="font-semibold border px-3 py-1 rounded-lg "
+                className="font-semibold border px-3 py-1 rounded-md "
               >
                 Profile
               </Link>

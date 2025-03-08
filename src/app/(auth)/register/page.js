@@ -8,6 +8,8 @@ import { MdMail } from "react-icons/md";
 import { GrOrganization } from "react-icons/gr";
 import { redirect } from "next/navigation";
 
+import OauthButton from "../_components/oauth-button";
+
 export default function Page() {
   const [state, formAction, pending] = useActionState(registerAction, null);
   const [username, setUsername] = useState("");
@@ -68,7 +70,7 @@ export default function Page() {
         <h3 className="font-bold text-lg">Register</h3>
         <p>Create an account to continue</p>
       </section>
-      <section>
+      <section className="space-y-2">
         <Form className="space-y-1" action={formAction}>
           <Input
             isRequired
@@ -99,7 +101,6 @@ export default function Page() {
           />
 
           <Input
-            isRequired
             endContent={<GrOrganization opacity={0.7} />}
             label="Organization"
             name="organization"
@@ -129,13 +130,14 @@ export default function Page() {
               if (!!confirmedPasswordError) setConfirmedPasswordError("");
               setConfirmedPassword(e);
             }}
-            isInvalid={!!confirmedPasswordError}
+            isInvalid={!!confirmedPasswordError || undefined}
             errorMessage={confirmedPasswordError}
           />
           <Button type="submit" color="primary" isLoading={pending} fullWidth>
             Register
           </Button>
         </Form>
+        <OauthButton />
       </section>
       <section className="text-center">
         <p>
