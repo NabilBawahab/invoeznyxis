@@ -13,7 +13,6 @@ import { glass } from "@dicebear/collection";
 
 import Image from "next/image";
 
-
 export default function LayoutClient({ children, session }) {
   const pathname = usePathname();
   const [state, formAction, pending] = useActionState(logoutAction, null);
@@ -93,7 +92,7 @@ export default function LayoutClient({ children, session }) {
           </div>
         </section>
       </div>
-      <div className="p-6">{children}</div>
+      <div className="p-6 w-full">{children}</div>
     </div>
   );
 }
