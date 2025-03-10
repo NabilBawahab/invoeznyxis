@@ -1,5 +1,5 @@
 import { auth } from "@/libs/auth";
-import { Card } from "@heroui/react";
+import { Link as HeroLink, Card } from "@heroui/react";
 import { prisma } from "@/utils/prisma";
 import { RecentInvoicesTable } from "./_components/recent_invoices";
 import { RecentClientsTable } from "./_components/recent_clients";
@@ -50,13 +50,35 @@ export default async function Page() {
               </div>
             </Card>
             <Card className="shadow-md min-h-60 p-4">
-              <p className="font-bold">Recent invoices</p>
+              <div className="flex justify-between">
+                <div>
+                  <p className="font-bold text-xl">Recent invoices</p>
+                  <p className="text-sm">Showing last 5 invoices</p>
+                </div>
+                <HeroLink
+                  aria-label="View full history"
+                  href="/dashboard/history"
+                >
+                  See all
+                </HeroLink>
+              </div>
               <hr className="my-4"></hr>
 
               <RecentInvoicesTable invoices={invoices} />
             </Card>
             <Card className="shadow-md min-h-60 p-4">
-              <p className="font-bold">Recent clients</p>
+              <div className="flex justify-between">
+                <div>
+                  <p className="font-bold text-xl">Recent clients</p>
+                  <p className="text-sm">Showing last 5 clients</p>
+                </div>
+                <HeroLink
+                  aria-label="View full history"
+                  href="/dashboard/history"
+                >
+                  See all
+                </HeroLink>
+              </div>
               <hr className="my-4"></hr>
               <RecentClientsTable clients={invoices} />
             </Card>

@@ -1,5 +1,3 @@
-// "use client";
-
 import { Card } from "@heroui/react";
 import { auth } from "@/libs/auth";
 import { UpdateForm } from "./_components/update_form";
@@ -7,10 +5,12 @@ import { UpdateForm } from "./_components/update_form";
 export default async function Page() {
   const session = await auth();
   const username = session.user.username;
-  const avatarUrl = session.user.avatarUrl;
+  const avatarURL = session.user.avatarURL;
   const userEmail = session.user.email;
   const userOrganization = session.user.organization;
   const userId = session.user.id;
+
+  console.log(avatarURL);
 
   return (
     <div className="w-5/6 m-auto">
@@ -20,7 +20,7 @@ export default async function Page() {
         <hr className="my-4"></hr>
         <UpdateForm
           username={username}
-          avatarUrl={avatarUrl}
+          avatarURL={avatarURL}
           userEmail={userEmail}
           userOrganization={userOrganization}
           userId={userId}

@@ -20,7 +20,7 @@ export const RecentInvoicesTable = ({ invoices }) => {
         <TableColumn>Name</TableColumn>
       </TableHeader>
       <TableBody>
-        {sortedInvoices.map((invoice) => {
+        {sortedInvoices.slice(0, 5).map((invoice) => {
           return (
             <TableRow key={invoice.id}>
               <TableCell>{invoice.name}</TableCell>

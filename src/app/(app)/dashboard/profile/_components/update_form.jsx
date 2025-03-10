@@ -9,18 +9,20 @@ export const UpdateForm = ({
   username,
   userEmail,
   userOrganization,
-  avatarUrl,
+  avatarURL,
 }) => {
   const [state, formAction, pending] = useActionState(
     updateProfileAction,
     null
   );
 
+  console.log(avatarURL);
+
   return (
     <>
       <div className="flex justify-center space-x-4 m-4 h-max">
         <div className="flex flex-col justify-center">
-          <Avatar src={avatarUrl} className="size-40" />
+          <Avatar src={avatarURL} className="size-40" />
         </div>
         <Form action={formAction} className="w-1/2">
           <input name="id" defaultValue={userId} hidden />

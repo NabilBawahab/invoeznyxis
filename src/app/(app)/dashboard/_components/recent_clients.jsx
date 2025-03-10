@@ -21,7 +21,7 @@ export const RecentClientsTable = ({ clients }) => {
         <TableColumn>Address</TableColumn>
       </TableHeader>
       <TableBody>
-        {sortedClients.map((client) => {
+        {sortedClients.slice(0, 5).map((client) => {
           return (
             <TableRow key={client.id}>
               <TableCell>{client.recipient}</TableCell>
