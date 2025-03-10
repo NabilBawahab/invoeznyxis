@@ -10,7 +10,7 @@ export async function deleteInvoice(_, formData) {
     await prisma.item.deleteMany({ where: { invoiceId: id } });
     await prisma.invoice.delete({ where: { id } });
   } catch (error) {
-    console.log(error);
+    console.log("Error deleting data", error);
   }
 
   redirect("/dashboard/history");
