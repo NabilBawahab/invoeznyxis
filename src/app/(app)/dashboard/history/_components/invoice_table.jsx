@@ -12,8 +12,11 @@ import {
 } from "@heroui/react";
 import { deleteInvoice } from "../action";
 import Link from "next/link";
+import { useActionState } from "react";
 
 export function InvoiceTable({ invoices: invoices }) {
+  const [state, formAction, pending] = useActionState(deleteInvoice, null);
+
   return (
     <Table removeWrapper>
       <TableHeader>
@@ -34,12 +37,13 @@ export function InvoiceTable({ invoices: invoices }) {
                   <Link href={`/dashboard/history/${invoice.id}/edit`}>
                     <Button size="sm">Edit</Button>
                   </Link>
-                  <Form action={deleteInvoice}>
+                  <Form action={formAction}>
                     <input name="id" defaultValue={invoice.id} hidden />
                     <Button
                       className="bg-red-500 text-white"
                       size="sm"
                       type="submit"
+                      isLoading={pending}
                     >
                       Delete
                     </Button>

@@ -15,7 +15,7 @@ export default async function Page() {
     <>
       <div className="w-5/6 m-auto">
         <p className="text-3xl mb-5">History</p>
-        <Card className="shadow-md p-4 min-h-60">
+        <Card className="shadow-md p-4 min-h-80">
           <p className="font-bold text-2xl">Invoices History</p>
           <hr className="my-4"></hr>
           <InvoiceTable invoices={invoices} />
