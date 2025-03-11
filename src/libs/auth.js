@@ -22,6 +22,7 @@ export const auth = async () => {
             username: true,
             avatarURL: true,
             organization: true,
+            email: true,
           },
         },
       },
