@@ -28,7 +28,8 @@ export const auth = async () => {
       },
     });
   } catch (error) {
-    console.log("Error fetching session", error);
+    console.log({ message: `Error fetching session: ${error}` });
+    return null;
   }
 
   if (!session) {
