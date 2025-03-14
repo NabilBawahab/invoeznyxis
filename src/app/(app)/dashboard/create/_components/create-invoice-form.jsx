@@ -360,12 +360,14 @@ export default function CreateInvoiceForm({ session }) {
                     <Input
                       label="Email Subject"
                       defaultValue={state?.subject}
+                      {...register("subject")}
                     />
                   </ModalHeader>
                   <ModalBody>
                     <Textarea
                       label="Cover Letter"
                       defaultValue={state?.letter}
+                      {...register("letter")}
                     />
                   </ModalBody>
                   <ModalFooter>
@@ -400,6 +402,7 @@ export default function CreateInvoiceForm({ session }) {
         onPress={() => {
           setValue("type", "submit");
         }}
+        isLoading={pending}
       >
         Create Invoice
       </Button>
