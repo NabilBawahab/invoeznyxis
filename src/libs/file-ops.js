@@ -13,7 +13,7 @@ export async function uploadFile({ key, folder, body }) {
     });
 
     const fileUpload = await s3CLient.send(command);
-    console.log(fileUpload);
+    // console.log(fileUpload);
   } catch (error) {
     console.log("Error uploading file", error);
   }

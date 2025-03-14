@@ -15,7 +15,6 @@ export default async function Page() {
   });
 
   const invoiceCount = invoices.length;
-  console.log(userId);
 
   return (
     <>
