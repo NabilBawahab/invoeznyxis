@@ -14,7 +14,7 @@ import { FaPlus, FaTrash } from "react-icons/fa";
 import React, { useActionState } from "react";
 import { startTransition } from "react";
 import { format } from "date-fns";
-
+import { parseDate } from "@internationalized/date";
 import { useFieldArray, useForm, useWatch } from "react-hook-form";
 import { updateInvoiceAction } from "../_actions/update-invoice-action";
 
@@ -28,7 +28,7 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
   const { control, register, formState, handleSubmit, setValue } = useForm({
     defaultValues: {
       name: invoice.name,
-      dueDate: invoice.dueDate,
+      dueDate: new Date(invoice.dueDate),
       recipient: invoice.recipient,
       recipientEmail: invoice.recipientEmail,
       recipientPhone: invoice.recipientPhone,
@@ -37,7 +37,6 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
       invoiceItems: items,
     },
   });
-  console.log(new Date(invoice.dueDate).toISOString().split("T")[0]);
   const { fields, append, remove } = useFieldArray({
     control,
     name: "invoiceItems",
@@ -81,8 +80,6 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
     });
   };
 
-  console.log("id: ", invoice.id);
-
   return (
     <form onSubmit={handleSubmit(submitFormAction)} className="w-3/4 mx-auto">
       <section className="grid grid-rows-1 grid-cols-12 w-full space-y-2 border-2 p-2 rounded-md">
@@ -96,7 +93,6 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
               label="What is this?"
               defaultValue="Invoice"
               isRequired
-              s
               {...register("name")}
             />
 
@@ -187,6 +183,9 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
             }
             className="max-w-[300px]"
             label="Invoice due date"
+            defaultValue={parseDate(
+              invoice.dueDate.toISOString().split("T")[0]
+            )}
           />
         </div>
 
