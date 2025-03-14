@@ -1,9 +1,8 @@
 "use server";
 
 import { prisma } from "@/utils/prisma";
-import { redirect } from "next/navigation";
 
-export async function createInvoiceAction(_, formData) {
+export async function updateInvoiceAction(_, formData) {
   const name = formData.name;
   const dueDate = formData.dueDate;
   const recipient = formData.recipient;
@@ -12,9 +11,10 @@ export async function createInvoiceAction(_, formData) {
   const recipientAddress = formData.recipientAddress;
   const authorId = formData.authorId;
   const invoiceItems = formData.invoiceItems;
-  let newInvoice;
+  const invoiceId = formData.id;
   try {
-    newInvoice = await prisma.invoice.create({
+    const newInvoice = await prisma.invoice.update({
+      where: { id: invoiceId },
       data: {
         name,
         dueDate,
@@ -25,6 +25,7 @@ export async function createInvoiceAction(_, formData) {
         authorId,
       },
     });
+    await prisma.item.deleteMany({ where: { invoiceId } });
     await prisma.item.createMany({
       data: invoiceItems.map((item) => ({
         ...item,
@@ -35,11 +36,8 @@ export async function createInvoiceAction(_, formData) {
     });
   } catch (error) {
     console.log({
-      message: "Error creating invoice or invoice item",
+      message: "Error updating invoice or invoice item",
       error: error,
     });
   }
-
-  console.log("id: ", newInvoice.id);
-  redirect(`/dashboard/history/${newInvoice.id}`);
 }

@@ -9,6 +9,7 @@ export async function updateProfileAction(_, formData) {
   const session = await auth();
   const currentUsername = session.user.username;
   const currentOrganization = session.user.organization;
+  const currentAvatarURL = session.user.avatarURL;
 
   const userId = formData.get("id");
   let username = formData.get("username").trim();
@@ -18,6 +19,8 @@ export async function updateProfileAction(_, formData) {
 
   if (image && image.size > 0) {
     avatarURL = `${process.env.R2_PUBLIC_URL}/${session.user.id}/${image.name}`;
+  } else {
+    avatarURL = currentAvatarURL;
   }
 
   if (!username) {

@@ -49,7 +49,7 @@ export default function LayoutClient({ children, session }) {
           <SidebarItem
             icon={<FaHistory />}
             text="History"
-            active={pathname === "/dashboard/history"}
+            active={pathname.startsWith("/dashboard/history")}
             href="/dashboard/history"
           />
         </section>

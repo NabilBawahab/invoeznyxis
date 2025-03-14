@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { Button, Form, Input, Avatar } from "@heroui/react";
+import { Button, Form, Input, Avatar, Image } from "@heroui/react";
 import { updateProfileAction } from "../action";
 
 export const UpdateForm = ({
@@ -21,8 +21,12 @@ export const UpdateForm = ({
   return (
     <>
       <div className="flex justify-center space-x-4 m-4 h-max">
-        <div className="flex flex-col justify-center">
-          <Avatar src={avatarURL} className="size-40" />
+        <div className="flex flex-col justify-center relative">
+          <Image
+            src={avatarURL}
+            alt="avatar"
+            className="size-40 rounded-full object-contain border border-neutral-300"
+          />
         </div>
         <Form action={formAction} className="w-1/2">
           <input name="id" defaultValue={userId} hidden />

@@ -34,7 +34,7 @@ export function InvoiceTable({ invoices: invoices }) {
               <TableCell>{invoice.recipientAddress}</TableCell>
               <TableCell>
                 <div className="flex justify-between space-x-2">
-                  <Link href={`/dashboard/history/${invoice.id}/edit`}>
+                  <Link href={`/dashboard/history/${invoice.id}`}>
                     <Button size="sm">Edit</Button>
                   </Link>
                   <Form action={formAction}>
