@@ -3,6 +3,7 @@
 import { prisma } from "@/utils/prisma";
 import { openai } from "@/utils/openai";
 import { redirect } from "next/navigation";
+import { resend } from "@/utils/resend";
 
 export async function createInvoiceAction(_, formData) {
   const name = formData.name;
@@ -65,6 +66,7 @@ export async function createInvoiceAction(_, formData) {
       ],
     });
     const result = completion.choices[0].message.content;
+
     try {
       const parsedResult = JSON.parse(result);
 
@@ -77,6 +79,9 @@ export async function createInvoiceAction(_, formData) {
     }
   }
   if (type === "submit") {
+    const subject = formData.subject;
+    const letter = formData.letter;
+
     try {
       const newInvoice = await prisma.invoice.create({
         data: {
@@ -103,6 +108,13 @@ export async function createInvoiceAction(_, formData) {
           id: authorId,
         },
       });
+
+      await resend.emails.send({
+        from: "InvoEzz <hello@invoezz.com>",
+        to: [recipientEmail],
+        subject: subject,
+        text: letter,
+      });
     } catch (error) {
       console.log({
         message: "Error creating invoice or invoice item",
@@ -111,6 +123,5 @@ export async function createInvoiceAction(_, formData) {
     }
   }
 
-  console.log("id: ", newInvoice.id);
-  redirect(`/dashboard/history/${newInvoice.id}`);
+  // redirect(`/dashboard/history/${newInvoice.id}`);
 }
