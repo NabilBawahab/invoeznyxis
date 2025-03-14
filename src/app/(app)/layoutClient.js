@@ -5,7 +5,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaUserGear, FaFileInvoice } from "react-icons/fa6";
 import { FaHistory } from "react-icons/fa";
-import { Button, Popover, PopoverContent, PopoverTrigger } from "@heroui/react";
+import {
+  Button,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  User,
+} from "@heroui/react";
 import { logoutAction } from "@/actions/logout-action";
 import { useActionState } from "react";
 import { createAvatar } from "@dicebear/core";
@@ -27,11 +33,8 @@ export default function LayoutClient({ children, session }) {
   return (
     <div className="flex h-screen bg-gray-50">
       <div className="w-[230px] bg-white shadow-md flex flex-col rounded-t-sm">
-        <Link
-          href="/dashboard"
-          className="text-lg font-semibold mb-6 px-4 py-2"
-        >
-          InvoEz.
+        <Link href="/dashboard" className="mb-6 py-2 px-3">
+          <Image src="/logo.jpeg" alt="Logo" width={130} height={30} />
         </Link>
         <section className="space-y-4 p-2">
           <SidebarItem
@@ -56,12 +59,13 @@ export default function LayoutClient({ children, session }) {
         <section className="space-x-4 mt-auto flex px-4 py-6 items-center ">
           <Popover showArrow offset={10} placement="bottom">
             <PopoverTrigger>
-              <Image
-                alt="image"
-                src={session.user.avatarURL || svg}
-                width={50}
-                height={50}
-                className="rounded-full hover:opacity-75 transition-opacity duration-300"
+              <User
+                avatarProps={{
+                  src: session.user.avatarURL || svg,
+                }}
+                description={session.user.organization}
+                name={session.user.username}
+                className="rounded-full hover:opacity-75 transition-opacity duration-300 cursor-pointer"
               />
             </PopoverTrigger>
             <PopoverContent className="space-y-2 p-2 rounded-md">
@@ -86,13 +90,9 @@ export default function LayoutClient({ children, session }) {
               </form>
             </PopoverContent>
           </Popover>
-          <div>
-            <h3 className="font-semibold">{session.user.username}</h3>
-            <div className="font-thin">{session.user.organization}</div>
-          </div>
         </section>
       </div>
-      <div className="p-6 w-full">{children}</div>
+      <div className="p-6 w-full overflow-auto h-full">{children}</div>
     </div>
   );
 }
