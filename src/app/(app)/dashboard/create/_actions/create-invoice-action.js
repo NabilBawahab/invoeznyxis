@@ -2,6 +2,7 @@
 
 import { prisma } from "@/utils/prisma";
 import { openai } from "@/utils/openai";
+import { redirect } from "next/navigation";
 
 export async function createInvoiceAction(_, formData) {
   const name = formData.name;
@@ -92,6 +93,8 @@ export async function createInvoiceAction(_, formData) {
         data: invoiceItems.map((item) => ({
           ...item,
           invoiceId: newInvoice.id,
+          price: Number(item.price),
+          quantity: Number(item.quantity),
         })),
       });
 
@@ -107,4 +110,7 @@ export async function createInvoiceAction(_, formData) {
       });
     }
   }
+
+  console.log("id: ", newInvoice.id);
+  redirect(`/dashboard/history/${newInvoice.id}`);
 }
