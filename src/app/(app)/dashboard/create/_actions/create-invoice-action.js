@@ -26,7 +26,12 @@ export async function createInvoiceAction(_, formData) {
       },
     });
     await prisma.item.createMany({
-      data: invoiceItems.map((item) => ({ ...item, invoiceId: newInvoice.id })),
+      data: invoiceItems.map((item) => ({
+        ...item,
+        invoiceId: newInvoice.id,
+        price: Number(item.price),
+        quantity: Number(item.quantity),
+      })),
     });
   } catch (error) {
     console.log({

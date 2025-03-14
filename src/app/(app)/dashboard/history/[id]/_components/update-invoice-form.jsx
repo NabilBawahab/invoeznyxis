@@ -37,6 +37,7 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
       invoiceItems: items,
     },
   });
+  console.log(new Date(invoice.dueDate).toISOString().split("T")[0]);
   const { fields, append, remove } = useFieldArray({
     control,
     name: "invoiceItems",
