@@ -1,6 +1,7 @@
 import { auth } from "@/libs/auth";
 import UpdateInvoiceForm from "./_components/update-invoice-form";
 import { prisma } from "@/utils/prisma";
+import { redirect } from "next/navigation";
 
 export default async function Page({ params }) {
   const session = await auth();
@@ -19,6 +20,10 @@ export default async function Page({ params }) {
     ...item,
     price: item.price.toString(),
   }));
+
+  if (invoice.authorId !== session.user.id) {
+    redirect("/dashboard/history");
+  }
 
   return (
     <main className="w-full max-h-screen space-y-4">
