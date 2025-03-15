@@ -4,6 +4,8 @@ import { prisma } from "@/utils/prisma";
 import { openai } from "@/utils/openai";
 import { redirect } from "next/navigation";
 import { resend } from "@/utils/resend";
+import path from "path";
+import fs from "fs";
 
 export async function createInvoiceAction(_, formData) {
   const name = formData.name;
@@ -28,35 +30,36 @@ export async function createInvoiceAction(_, formData) {
         {
           role: "system",
           content: `You are the secretary/personal assistant of this user:
-        User:
-        name: ${userName}
-        organization/company: ${organization}
-        Email: ${senderEmail}
+          User:
+          name: ${userName}
+          organization/company: ${organization}
+          Email: ${senderEmail}
 
-        Currently, you are ordered by user to make a ${invoiceType} invoice cover letter to their client, with the following information:
+          Currently, you are ordered by user to make a ${invoiceType} invoice cover letter to their client, with the following information:
 
-        Recipient:
-        organization/company: ${recipient}
-        Address: ${recipientAddress}
-        phone number/email: ${recipientPhone} (phone), ${recipientEmail} (email)
-        item: ${invoiceItems.map((item) => {
-          return `${item.name} - item price :${item.price}`;
-        })}
-        quantity: ${invoiceItems.map((item) => {
-          return `${item.quantity}`;
-        })}
-        total prices: (ITEM PRICE 1 X QUANTITY) + (ITEM PRICE 2 X QUANTITY) AND SO ON, 
-        bill due date: ${dueDate}
+          Recipient:
+          organization/company: ${recipient}
+          Address: ${recipientAddress}
+          phone number: ${recipientPhone}
+          recipient email: ${recipientEmail}
+          item: ${invoiceItems.map((item) => {
+            return `${item.name} - item price :${item.price}`;
+          })}
+          quantity: ${invoiceItems.map((item) => {
+            return `${item.quantity}`;
+          })}
+          total prices: ${totalPrice},
+          bill due date: ${dueDate}
 
-        The results should be ready to use and will be sent to the client email
+          The results should be ready to use and will be sent to the client email
 
-        IMPORTANT: JUST A LETTER, NO EXPLANATIONS AND KEY IMPROVEMENTS, NO USER PHONE NUMBER, ALL CURRENCY IN INDONESIAN RUPIAH, AND RESPONSE ARE IN ENGLISH
+          IMPORTANT: JUST A LETTER, NO EXPLANATIONS AND KEY IMPROVEMENTS, NO USER PHONE NUMBER, ALL CURRENCY IN INDONESIAN RUPIAH, AND RESPONSE ARE IN ENGLISH
 
-        OUPUT MUST BE IN VALID JSON FORMAT AND READY TO USE WITHOUT EDIT, WITHOUT ANY BACKTICKS (\`) AND WITHOUT '''JSON
+          OUPUT MUST BE IN VALID JSON FORMAT AND READY TO USE WITHOUT EDIT, WITHOUT ANY BACKTICKS (\`) AND WITHOUT '''JSON
 
-        Example:
-          {"subject":"email subject", "letter": "content you make(cover letter)"}
-        `,
+          Example:
+            {"subject":"email subject", "letter": "content you make(cover letter)"}
+          `,
         },
 
         {
@@ -64,6 +67,7 @@ export async function createInvoiceAction(_, formData) {
           content: `I want to give an invoice to my client, please make a cover letter for the subject and body of the email, i want an ${invoiceType} cover letter.`,
         },
       ],
+      temperature: 0.7,
     });
     const result = completion.choices[0].message.content;
 
@@ -109,11 +113,43 @@ export async function createInvoiceAction(_, formData) {
         },
       });
 
+      const filePath = path.join(
+        process.cwd(),
+        "src",
+        "components",
+        "invoice-email-template.html"
+      );
+
+      let html = fs.readFileSync(filePath, "utf8");
+
+      html = html.replace("{{recipient}}", recipient);
+      html = html.replace("{{recipientEmail}}", recipientEmail);
+      html = html.replace("{{recipientAddress}}", recipientAddress);
+      html = html.replace("{{recipientPhone}}", recipientPhone);
+      html = html.replace("{{userName}}", userName);
+      html = html.replace("{{senderEmail}}", senderEmail);
+      html = html.replace("{{dueDate}}", dueDate);
+      html = html.replace("{{totalPrice}}", totalPrice);
+      html = html.replace("{{letter}}", letter);
+      html = html.replace(
+        "{{invoiceItems}}",
+        invoiceItems.map((item) => {
+          return `<tr>
+          <td>${item.name}</td>
+          <td>${item.description}</td>
+          <td>Rp${item.price}</td>
+          <td>${item.quantity}</td>
+          <td>Rp${item.price * item.quantity}</td>
+        </tr>`;
+        })
+      );
+
       await resend.emails.send({
-        from: "InvoEzz <hello@invoezz.com>",
+        from: "InvoEzz <no-reply@invoezz.com>",
         to: [recipientEmail],
         subject: subject,
         text: letter,
+        html: html,
       });
     } catch (error) {
       console.log({
@@ -123,5 +159,5 @@ export async function createInvoiceAction(_, formData) {
     }
   }
 
-  // redirect(`/dashboard/history/${newInvoice.id}`);
+  redirect("/dashboard/history");
 }
