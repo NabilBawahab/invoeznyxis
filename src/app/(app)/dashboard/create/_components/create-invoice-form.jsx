@@ -21,7 +21,7 @@ import {
   useDisclosure,
 } from "@heroui/react";
 import { FaPlus, FaTrash } from "react-icons/fa";
-import React, { useActionState, useState } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 import { startTransition } from "react";
 import { format } from "date-fns";
 
@@ -77,6 +77,10 @@ export default function CreateInvoiceForm({ session }) {
       name: "invoiceItems",
     });
     const total = calculateTotal(payload);
+    useEffect(() => {
+      setValue("totalPrice", total);
+    }, [total, setValue]);
+
     return (
       <div className="col-start-4">
         <Input
