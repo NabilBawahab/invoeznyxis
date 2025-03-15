@@ -106,7 +106,7 @@ export default function CreateInvoiceForm({ session }) {
   return (
     <form
       onSubmit={handleSubmit(submitFormAction)}
-      className="w-5/6 mx-auto space-y-2 py-4"
+      className="w-5/6 mx-auto space-y-2 pt-4"
     >
       <div>
         <Card className="grid grid-rows-1 grid-cols-12 w-full space-y-2 shadow-md p-4">
