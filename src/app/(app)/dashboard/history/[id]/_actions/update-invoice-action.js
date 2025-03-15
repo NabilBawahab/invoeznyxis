@@ -8,14 +8,14 @@ import path from "path";
 import fs from "fs";
 
 export async function updateInvoiceAction(_, formData) {
-  let name = formData.name;
+  const name = formData.name;
   const userName = formData.userName;
-  let dueDate = formData.dueDate;
-  let recipient = formData.recipient;
-  let recipientEmail = formData.recipientEmail;
-  let recipientPhone = formData.recipientPhone;
-  let recipientAddress = formData.recipientAddress;
-  let authorId = formData.authorId;
+  const dueDate = formData.dueDate;
+  const recipient = formData.recipient;
+  const recipientEmail = formData.recipientEmail;
+  const recipientPhone = formData.recipientPhone;
+  const recipientAddress = formData.recipientAddress;
+  const authorId = formData.authorId;
   const invoiceItems = formData.invoiceItems;
   const invoiceId = formData.id;
   const invoiceType = formData.invoiceType;
