@@ -22,11 +22,13 @@ export const UpdateForm = ({
     <>
       <div className="flex justify-center space-x-4 m-4 h-max">
         <div className="flex flex-col justify-center relative">
-          <Image
-            src={avatarURL}
-            alt="avatar"
-            className="size-40 rounded-full object-contain border border-neutral-300"
-          />
+          <div className="relative bg-black z-10">
+            <Image
+              src={avatarURL}
+              alt="avatar"
+              className="relative size-40 rounded-full object-contain border border-neutral-300 hover:"
+            />
+          </div>
         </div>
         <Form action={formAction} className="w-1/2">
           <input name="id" defaultValue={userId} hidden />

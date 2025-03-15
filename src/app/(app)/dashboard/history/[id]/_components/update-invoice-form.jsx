@@ -99,7 +99,10 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
-    <form onSubmit={handleSubmit(submitFormAction)} className="w-5/6 mx-auto">
+    <form
+      onSubmit={handleSubmit(submitFormAction)}
+      className="w-5/6 mx-auto space-y-2 pt-4"
+    >
       <div>
         <Card className="grid grid-rows-1 grid-cols-12 w-full space-y-2 shadow-md p-4">
           <div className="col-span-12 ">
