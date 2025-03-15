@@ -10,9 +10,24 @@ export default async function Page() {
   const userOrganization = session.user.organization;
   const userId = session.user.id;
 
+  const now = new Date();
+
   const invoices = await prisma.invoice.findMany({
     where: { authorId: userId },
   });
+
+  const invoicesDue = await prisma.invoice.findMany({
+    where: { authorId: userId, dueDate: { gte: now } },
+    include: { Items: true },
+  });
+
+  const items = invoicesDue.flatMap((invoice) => invoice.Items);
+
+  const dueAmount = items.reduce((total, item) => {
+    return total + Number(item.price) * Number(item.quantity);
+  }, 0);
+
+  const dueCount = invoicesDue.length;
 
   const invoiceCount = invoices.length;
 
@@ -30,21 +45,26 @@ export default async function Page() {
               <hr className="my-4"></hr>
               <div className="grid grid-cols-3 grid-rows-1 gap-4">
                 <div className="flex flex-col justify-around">
-                  <p className="m-auto p-8 text-8xl font-bold">
+                  <p className="m-auto p-8 text-8xl font-bold h-40">
                     {invoiceCount}
                   </p>
                   <hr className="my-2"></hr>
                   <p className="m-auto text-xl">Invoice count</p>
                 </div>
                 <div className="flex flex-col justify-around">
-                  <p className="m-auto p-8 text-8xl font-bold">0</p>
+                  <p className="m-auto p-8 text-8xl font-bold h-40">
+                    {dueCount}
+                  </p>
                   <hr className="my-2"></hr>
                   <p className="m-auto text-xl">Invoices due</p>
                 </div>
                 <div className="flex flex-col justify-around">
-                  <p className="m-auto p-8 text-8xl font-bold">$0</p>
+                  <div className="m-auto p-8 text-3xl font-bold h-40 flex flex-col justify-center items-center">
+                    <div>Rp</div>
+                    <div>{dueAmount}</div>
+                  </div>
                   <hr className="my-2"></hr>
-                  <p className="m-auto text-xl">Total revenue</p>
+                  <p className="m-auto text-xl">Amount due</p>
                 </div>
               </div>
             </Card>

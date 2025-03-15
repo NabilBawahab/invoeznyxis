@@ -395,7 +395,7 @@ export default function CreateInvoiceForm({ session }) {
             radius="full"
             className="bg-gradient-to-tr from-cyan-500 to-blue-500 text-white shadow-lg font-bold"
           >
-            Generate
+            Save & Generate
           </Button>
         </div>
       </div>
@@ -408,7 +408,7 @@ export default function CreateInvoiceForm({ session }) {
         }}
         isLoading={pending}
       >
-        Create Invoice
+        Create & Send Invoice
       </Button>
     </form>
   );

@@ -160,6 +160,6 @@ export async function createInvoiceAction(_, formData) {
       });
     }
   }
-  
+
   redirect(`/dashboard/history/${newInvoice.id}`);
 }
