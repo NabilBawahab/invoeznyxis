@@ -23,6 +23,8 @@ export async function createInvoiceAction(_, formData) {
   const totalPrice = formData.totalPrice;
   const type = formData.type; // type submit/preview
 
+  let newInvoice;
+
   if (type === "generate") {
     const completion = await openai.chat.completions.create({
       model: "deepseek/deepseek-chat:free",
@@ -87,7 +89,7 @@ export async function createInvoiceAction(_, formData) {
     const letter = formData.letter;
 
     try {
-      const newInvoice = await prisma.invoice.create({
+      newInvoice = await prisma.invoice.create({
         data: {
           name,
           dueDate,
@@ -158,6 +160,6 @@ export async function createInvoiceAction(_, formData) {
       });
     }
   }
-
-  redirect("/dashboard/history");
+  
+  redirect(`/dashboard/history/${newInvoice.id}`);
 }

@@ -33,8 +33,14 @@ export default function LayoutClient({ children, session }) {
   return (
     <div className="flex h-screen bg-gray-50">
       <div className="w-[230px] bg-white shadow-md flex flex-col rounded-t-sm">
-        <Link href="/dashboard" className="mb-6 py-2 px-3">
-          <Image src="/logo.jpeg" alt="Logo" width={130} height={30} />
+        <Link href="/dashboard" className="py-2 px-3 w-full">
+          <Image
+            src="/logo.jpeg"
+            alt="Logo"
+            width={195}
+            height={45}
+            className="m-auto"
+          />
         </Link>
         <section className="space-y-4 p-2">
           <SidebarItem

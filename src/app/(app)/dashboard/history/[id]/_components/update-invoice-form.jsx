@@ -1,6 +1,7 @@
 "use client";
 import {
   Button,
+  Card,
   DatePicker,
   Input,
   Table,
@@ -81,8 +82,8 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(submitFormAction)} className="w-3/4 mx-auto">
-      <section className="grid grid-rows-1 grid-cols-12 w-full space-y-2 border-2 p-2 rounded-md">
+    <form onSubmit={handleSubmit(submitFormAction)} className="w-5/6 mx-auto">
+      <Card className="grid grid-rows-1 grid-cols-12 w-full space-y-2 shadow-md p-4">
         <div className="col-span-12 ">
           <div className="space-y-2">
             <input hidden defaultValue={invoice.id} {...register("id")}></input>
@@ -122,7 +123,7 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
               radius="sm"
               size="lg"
               label="Who is this bill from?"
-              isReadOnly
+              isDisabled
               defaultValue={session.user.username}
             />
           </div>
@@ -148,7 +149,7 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
               radius="sm"
               size="sm"
               label="sender@contact.com"
-              isReadOnly
+              isDisabled
               defaultValue={session.user.email}
             />
           </div>
@@ -195,11 +196,12 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
           aria-label="Invoice Item"
           radius="none"
           topContentPlacement="outside"
+          shadow="none"
           classNames={{
             td: "gap-x-10",
             wrapper: "bg-inherit",
           }}
-          className="col-span-12"
+          className="col-span-12 border"
         >
           <TableHeader>
             <TableColumn className="w-1/4">Item</TableColumn>
@@ -280,7 +282,7 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
         <div className="col-span-12 grid grid-cols-4">
           <SubTotal />
         </div>
-      </section>
+      </Card>
       <div>
         <p className="text-danger-500 text-sm">
           {formState.errors?.invoiceItems?.root?.message}
@@ -289,9 +291,7 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
       <Button
         type="submit"
         fullWidth
-        className="mt-3"
-        radius="sm"
-        color="primary"
+        className="mt-3 rounded-lg bg-blue-500 text-white"
       >
         Update Invoice
       </Button>
