@@ -18,7 +18,7 @@ export async function createInvoiceAction(_, formData) {
   const authorId = formData.authorId;
   const invoiceItems = formData.invoiceItems;
   const invoiceType = formData.invoiceType;
-  const organization = formData.organization;
+  const organization = formData.userOrganization;
   const senderEmail = formData.senderEmail;
   const totalPrice = formData.totalPrice;
   const type = formData.type; // type submit/preview

@@ -150,6 +150,7 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
                 label="Who is this bill from?"
                 isDisabled
                 defaultValue={session.user.username}
+                {...register("userName")}
               />
             </div>
           </div>
@@ -176,6 +177,7 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
                 label="sender@contact.com"
                 isDisabled
                 defaultValue={session.user.email}
+                {...register("senderEmail")}
               />
             </div>
           </div>
@@ -403,6 +405,10 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
         type="submit"
         fullWidth
         className="mt-3 rounded-lg bg-blue-500 text-white"
+        onPress={() => {
+          setValue("type", "submit");
+        }}
+        isLoading={pending}
       >
         Update & Resend Invoice
       </Button>

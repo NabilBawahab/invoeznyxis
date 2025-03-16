@@ -19,7 +19,7 @@ export async function updateInvoiceAction(_, formData) {
   const invoiceItems = formData.invoiceItems;
   const invoiceId = formData.id;
   const invoiceType = formData.invoiceType;
-  const organization = formData.organization;
+  const organization = formData.userOrganization;
   const senderEmail = formData.senderEmail;
   const totalPrice = formData.totalPrice;
   const type = formData.type; // type submit/preview
