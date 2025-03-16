@@ -25,7 +25,7 @@ export const UpdateForm = ({
           <Image
             src={avatarURL}
             alt="avatar"
-            className="relative size-40 rounded-full object-contain border border-neutral-300 hover:"
+            className="relative size-40 rounded-full object-contain border border-neutral-300"
           />
         </div>
         <Form action={formAction} className="w-1/2">
