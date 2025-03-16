@@ -118,13 +118,11 @@ export async function updateInvoiceAction(_, formData) {
         },
       });
 
-      const filePath = path.join(
-        process.cwd(),
-        "public",
-        "invoice-email-template.html"
-      );
+      // const filePath = "http://localhost:3000/invoice-email-template.html"; // ini untuk di dev
+      const filePath = "https://www.invoezz.com/invoice-email-template.html"; // ini untuk di production
 
-      let html = fs.readFileSync(filePath, "utf8");
+      const response = await fetch(filePath);
+      let html = await response.text();
 
       html = html.replace("{{recipient}}", recipient);
       html = html.replace("{{recipientEmail}}", recipientEmail);
