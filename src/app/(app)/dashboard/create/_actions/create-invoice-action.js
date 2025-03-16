@@ -117,8 +117,7 @@ export async function createInvoiceAction(_, formData) {
 
       const filePath = path.join(
         process.cwd(),
-        "src",
-        "components",
+        "public",
         "invoice-email-template.html"
       );
 
@@ -135,15 +134,17 @@ export async function createInvoiceAction(_, formData) {
       html = html.replace("{{letter}}", letter);
       html = html.replace(
         "{{invoiceItems}}",
-        invoiceItems.map((item) => {
-          return `<tr>
+        invoiceItems
+          .map((item) => {
+            return `<tr>
           <td>${item.name}</td>
           <td>${item.description}</td>
           <td>Rp${item.price}</td>
           <td>${item.quantity}</td>
           <td>Rp${item.price * item.quantity}</td>
         </tr>`;
-        })
+          })
+          .join("")
       );
 
       await resend.emails.send({
