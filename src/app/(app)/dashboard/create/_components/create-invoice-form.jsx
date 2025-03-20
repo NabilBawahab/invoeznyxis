@@ -21,7 +21,7 @@ import {
   useDisclosure,
 } from "@heroui/react";
 import { FaPlus, FaTrash } from "react-icons/fa";
-import React, { useActionState, useEffect, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { startTransition } from "react";
 import { format } from "date-fns";
 
