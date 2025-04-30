@@ -121,7 +121,6 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
                 isRequired
                 {...register("name")}
               />
-
               <div className="flex justify-end mb-5">
                 <p>{format(new Date(), "PPP")}</p>
               </div>
