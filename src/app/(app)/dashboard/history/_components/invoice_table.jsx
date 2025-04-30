@@ -18,7 +18,7 @@ export function InvoiceTable({ invoices: invoices }) {
   const [state, formAction, pending] = useActionState(deleteInvoice, null);
 
   return (
-    <Table removeWrapper>
+    <Table removeWrapper className="overflow-auto">
       <TableHeader>
         <TableColumn>Name</TableColumn>
         <TableColumn>Recipient</TableColumn>

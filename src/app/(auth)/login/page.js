@@ -1,17 +1,17 @@
-"use client";
-import { addToast, Button, Form, Input } from "@heroui/react";
-import Link from "next/link";
-import { useActionState, useEffect, useState } from "react";
-import { loginAction } from "./action";
-import { redirect } from "next/navigation";
-import OauthButton from "../_components/oauth-button";
-import { MdMail } from "react-icons/md";
-import { FaLock } from "react-icons/fa6";
+'use client';
+import { addToast, Button, Form, Input } from '@heroui/react';
+import Link from 'next/link';
+import { useActionState, useEffect, useState } from 'react';
+import { loginAction } from './action';
+import { redirect } from 'next/navigation';
+import OauthButton from '../_components/oauth-button';
+import { MdMail } from 'react-icons/md';
+import { FaLock } from 'react-icons/fa6';
 
 export default function Page() {
   const [state, formAction, pending] = useActionState(loginAction, null);
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
   useEffect(() => {
     if (!!state?.fieldsError?.emailValue)
       setEmail(state.fieldsError.emailValue);
@@ -23,14 +23,14 @@ export default function Page() {
     if (!!state?.message) {
       if (state.success === true) {
         addToast({
-          title: "Logins Success!",
+          title: 'Login Success!',
           description: state.message,
-          variant: "bordered",
-          color: "success",
-          radius: "sm",
+          variant: 'bordered',
+          color: 'success',
+          radius: 'sm',
         });
         setTimeout(() => {
-          redirect("/dashboard");
+          redirect('/dashboard');
         }, 1000);
       }
     }
@@ -53,7 +53,7 @@ export default function Page() {
           isInvalid={!!error || undefined}
           errorMessage={error}
           onValueChange={(e) => {
-            if (error) setError("");
+            if (error) setError('');
             setEmail(e);
           }}
           variant="underlined"
@@ -67,7 +67,7 @@ export default function Page() {
           isInvalid={!!error || undefined}
           errorMessage={error}
           onValueChange={(e) => {
-            if (error) setError("");
+            if (error) setError('');
           }}
           variant="underlined"
         />
@@ -79,8 +79,8 @@ export default function Page() {
 
       <section className="text-center">
         <p>
-          Don&apos;t have an account?{" "}
-          <Link href={"/register"} className="text-primary-500">
+          Don&apos;t have an account?{' '}
+          <Link href={'/register'} className="text-primary-500">
             Register
           </Link>
         </p>

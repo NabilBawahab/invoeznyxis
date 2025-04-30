@@ -39,6 +39,8 @@ export default function CreateInvoiceForm({ session }) {
   );
 
   const [type, setType] = useState("");
+  const [letter, setLetter] = useState(null);
+  const [subject, setSubject] = useState(null);
 
   const { control, register, formState, handleSubmit, setValue } = useForm({
     defaultValues: {
@@ -103,6 +105,11 @@ export default function CreateInvoiceForm({ session }) {
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
+  useEffect(() => {
+    setValue("subject", state?.subject);
+    setValue("letter", state?.letter);
+  }, [state, setValue]);
+
   return (
     <form
       onSubmit={handleSubmit(submitFormAction)}
@@ -122,7 +129,6 @@ export default function CreateInvoiceForm({ session }) {
                 s
                 {...register("name")}
               />
-
               <div className="flex justify-end mb-5">
                 <p>{format(new Date(), "PPP")}</p>
               </div>
@@ -365,14 +371,14 @@ export default function CreateInvoiceForm({ session }) {
                   <ModalHeader>
                     <Input
                       label="Email Subject"
-                      defaultValue={state?.subject}
+                      defaultValue={subject}
                       {...register("subject")}
                     />
                   </ModalHeader>
                   <ModalBody>
                     <Textarea
                       label="Cover Letter"
-                      defaultValue={state?.letter}
+                      defaultValue={letter}
                       {...register("letter")}
                     />
                   </ModalBody>
