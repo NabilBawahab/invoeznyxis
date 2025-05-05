@@ -37,9 +37,11 @@ export const generateAI = async (formData) => {
               IMPORTANT: JUST A LETTER, NO EXPLANATIONS AND KEY IMPROVEMENTS, NO USER PHONE NUMBER, ALL CURRENCY IN INDONESIAN RUPIAH, AND RESPONSE ARE IN ENGLISH
     
               OUPUT MUST BE IN VALID JSON FORMAT AND READY TO USE WITHOUT EDIT, WITHOUT ANY BACKTICKS (\`) AND WITHOUT '''JSON
+
+              AND THE RESULT WILL NOT INCLUDE THE OPENING MESSAGE FROM YOU, JUST A JSON FORMAT LIKE EXAMPLE BELOW
     
-              Example:
-                {"subject":"email subject", "letter": "content you make(cover letter)"}
+              Example AND THE RESULT MUST LIKE THIS:
+                {"subject":"email subject", "letter": "cover letter that you make"}
               `,
         },
 

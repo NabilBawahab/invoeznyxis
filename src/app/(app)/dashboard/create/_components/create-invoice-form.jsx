@@ -35,7 +35,7 @@ const RupiahIcon = () => {
 export default function CreateInvoiceForm({ session }) {
   const [state, formAction, pending] = useActionState(
     createInvoiceAction,
-    null
+    null,
   );
 
   const [type, setType] = useState("");
@@ -79,6 +79,7 @@ export default function CreateInvoiceForm({ session }) {
       name: "invoiceItems",
     });
     const total = calculateTotal(payload);
+
     useEffect(() => {
       setValue("totalPrice", total);
     }, [total, setValue]);
@@ -216,7 +217,7 @@ export default function CreateInvoiceForm({ session }) {
               onChange={(date) =>
                 setValue(
                   "dueDate",
-                  new Date(date.year, date.month - 1, date.day)
+                  new Date(date.year, date.month - 1, date.day),
                 )
               }
               className="max-w-[300px]"

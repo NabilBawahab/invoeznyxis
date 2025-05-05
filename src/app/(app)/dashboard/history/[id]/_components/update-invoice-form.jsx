@@ -21,7 +21,7 @@ import {
   useDisclosure,
 } from "@heroui/react";
 import { FaPlus, FaTrash } from "react-icons/fa";
-import React, { useActionState, useState } from "react";
+import React, { useActionState, useEffect, useState } from "react";
 import { startTransition } from "react";
 import { format } from "date-fns";
 import { parseDate } from "@internationalized/date";
@@ -35,10 +35,12 @@ const RupiahIcon = () => {
 export default function UpdateInvoiceForm({ session, invoice, items }) {
   const [state, formAction, pending] = useActionState(
     updateInvoiceAction,
-    null
+    null,
   );
 
   const [type, setType] = useState("");
+  const [letter, setLetter] = useState(null);
+  const [subject, setSubject] = useState(null);
 
   const { control, register, formState, handleSubmit, setValue } = useForm({
     defaultValues: {
@@ -77,9 +79,15 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
       name: "invoiceItems",
     });
     const total = calculateTotal(payload);
+
+    useEffect(() => {
+      setValue("totalPrice", total);
+    }, [total, setValue]);
+
     return (
       <div className="col-start-4">
         <Input
+          {...register("totalPrice")}
           startContent={<RupiahIcon />}
           label="Sub Total"
           labelPlacement="outside-left"
@@ -97,6 +105,11 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
   };
 
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  useEffect(() => {
+    setValue("subject", state?.subject);
+    setValue("letter", state?.letter);
+  });
 
   return (
     <form
@@ -208,13 +221,13 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
               onChange={(date) =>
                 setValue(
                   "dueDate",
-                  new Date(date.year, date.month - 1, date.day)
+                  new Date(date.year, date.month - 1, date.day),
                 )
               }
               className="max-w-[300px]"
               label="Invoice due date"
               defaultValue={parseDate(
-                invoice.dueDate.toISOString().split("T")[0]
+                invoice.dueDate.toISOString().split("T")[0],
               )}
             />
           </div>
@@ -366,14 +379,14 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
                   <ModalHeader>
                     <Input
                       label="Email Subject"
-                      defaultValue={state?.subject}
+                      defaultValue={subject}
                       {...register("subject")}
                     />
                   </ModalHeader>
                   <ModalBody>
                     <Textarea
                       label="Cover Letter"
-                      defaultValue={state?.letter}
+                      defaultValue={letter}
                       {...register("letter")}
                     />
                   </ModalBody>

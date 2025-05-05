@@ -89,7 +89,7 @@ export async function updateInvoiceAction(_, formData) {
           <td>Rp${item.price * item.quantity}</td>
         </tr>`;
           })
-          .join("")
+          .join(""),
       );
 
       await resend.emails.send({
