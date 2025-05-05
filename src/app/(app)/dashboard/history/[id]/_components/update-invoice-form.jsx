@@ -109,7 +109,7 @@ export default function UpdateInvoiceForm({ session, invoice, items }) {
   useEffect(() => {
     setValue("subject", state?.subject);
     setValue("letter", state?.letter);
-  });
+  }, [state, setValue]);
 
   return (
     <form
