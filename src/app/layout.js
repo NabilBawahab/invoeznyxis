@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "InvoEz",
-  description: "FREE ONLINE INVOICE GENERATOR WITH AI",
+  title: "InvoEz - Free Online Invoice with AI Powered",
+  description: "FREE ONLINE INVOICE WITH AI",
   icons: "/favicon.ico",
 };
 
@@ -26,7 +26,9 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <div>{children}</div>
+        </Providers>
       </body>
     </html>
   );

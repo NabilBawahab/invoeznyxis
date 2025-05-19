@@ -5,23 +5,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaUserGear, FaFileInvoice } from "react-icons/fa6";
 import { FaHistory, FaBars } from "react-icons/fa";
-import {
-  Button,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-  User,
-} from "@heroui/react";
-import { logoutAction } from "@/actions/logout-action";
-import { useActionState, useEffect, useState } from "react";
+import { Button } from "@heroui/react";
+
+import { useEffect, useState } from "react";
 import { createAvatar } from "@dicebear/core";
 import { glass } from "@dicebear/collection";
 
 import Image from "next/image";
+import { UserPopover } from "@/components/userpopover";
 
 export default function LayoutClient({ children, session }) {
   const pathname = usePathname();
-  const [state, formAction, pending] = useActionState(logoutAction, null);
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -65,7 +59,7 @@ export default function LayoutClient({ children, session }) {
       >
         <Link href="/dashboard" className="py-2 px-3 w-full">
           <Image
-            src="/logo.jpeg"
+            src="/logoinvoez.png"
             alt="Logo"
             width={195}
             height={45}
@@ -91,41 +85,12 @@ export default function LayoutClient({ children, session }) {
             active={pathname.startsWith("/dashboard/history")}
             href="/dashboard/history"
           />
+          <Button as={Link} href="/" variant="ghost" size="sm" fullWidth>
+            Back to home
+          </Button>
         </section>
         <section className="space-x-4 mt-auto flex px-4 py-6 items-center ">
-          <Popover showArrow offset={10} placement="bottom">
-            <PopoverTrigger>
-              <User
-                avatarProps={{
-                  src: session.user.avatarURL || svg,
-                }}
-                description={session.user.organization}
-                name={session.user.username}
-                className="rounded-full hover:opacity-75 transition-opacity duration-300 cursor-pointer"
-              />
-            </PopoverTrigger>
-            <PopoverContent className="space-y-2 p-2 rounded-md">
-              <Link
-                href={"/dashboard/profile"}
-                className="font-semibold border px-3 py-1 rounded-md "
-              >
-                Profile
-              </Link>
-              <form action={formAction}>
-                <Button
-                  size="sm"
-                  type="submit"
-                  isLoading={pending}
-                  color="danger"
-                  radius="md"
-                  variant="bordered"
-                  className="font-bold"
-                >
-                  Logout
-                </Button>
-              </form>
-            </PopoverContent>
-          </Popover>
+          <UserPopover session={session} />
         </section>
       </div>
       <div
