@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Open_Sans } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/shared/providers";
 import { image } from "@heroui/react";
@@ -14,9 +14,14 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const openSans = Open_Sans({
+  variable: "--font-open-sans",
+  subsets: ["latin"],
+});
+
 export const metadata = {
-  title: "InvoEz",
-  description: "FREE ONLINE INVOICE GENERATOR WITH AI",
+  title: "InvoEz - Free Online Invoice with AI Powered",
+  description: "FREE ONLINE INVOICE WITH AI",
   icons: "/favicon.ico",
 };
 
@@ -24,9 +29,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${openSans.variable} antialiased`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <div>{children}</div>
+        </Providers>
       </body>
     </html>
   );

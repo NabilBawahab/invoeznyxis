@@ -10,11 +10,15 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        openSans: ["var(--font-open-sans)", "sans-serif"],
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
     },
   },
+
   plugins: [heroui()],
 };
