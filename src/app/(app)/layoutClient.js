@@ -6,25 +6,15 @@ import { usePathname } from "next/navigation";
 import { FaUserGear, FaFileInvoice } from "react-icons/fa6";
 import { FaHistory, FaBars } from "react-icons/fa";
 import { Button } from "@heroui/react";
-
 import { useEffect, useState } from "react";
-import { createAvatar } from "@dicebear/core";
-import { glass } from "@dicebear/collection";
-
 import Image from "next/image";
 import { UserPopover } from "@/components/userpopover";
+import { MoveLeft } from "lucide-react";
 
 export default function LayoutClient({ children, session }) {
   const pathname = usePathname();
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-
-  // Avatar Dicebear
-  const avatar = createAvatar(glass, {
-    seed: session.user.username,
-  });
-
-  const svg = avatar.toDataUri();
 
   useEffect(() => {
     const handleResize = () => {
@@ -85,8 +75,16 @@ export default function LayoutClient({ children, session }) {
             active={pathname.startsWith("/dashboard/history")}
             href="/dashboard/history"
           />
-          <Button as={Link} href="/" variant="ghost" size="sm" fullWidth>
-            Back to home
+          <Button
+            as={Link}
+            href="/"
+            variant="ghost"
+            size="sm"
+            className="font-openSans font-bold"
+            startContent={<MoveLeft />}
+            fullWidth
+          >
+            Home
           </Button>
         </section>
         <section className="space-x-4 mt-auto flex px-4 py-6 items-center ">

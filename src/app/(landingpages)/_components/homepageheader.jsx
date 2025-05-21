@@ -26,12 +26,12 @@ export const HomepageHeaders = ({ session }) => {
           <>
             <NavItems href="/">Home</NavItems>
             <NavItems href="/dashboard">Dashboard</NavItems>
-            <NavItems href="/about">About</NavItems>
+            {/* <NavItems href="/about">About</NavItems> */}
           </>
         ) : (
           <>
             <NavItems href="/">Home</NavItems>
-            <NavItems href="/about">About</NavItems>
+            {/* <NavItems href="/about">About</NavItems> */}
           </>
         )}
       </NavbarContent>
@@ -48,7 +48,8 @@ export const HomepageHeaders = ({ session }) => {
                 size="sm"
                 href="/login"
                 variant="ghost"
-                className="font-bold text-slate-700 font-mono"
+                color="warning"
+                className="font-bold font-openSans"
               >
                 Login
               </Button>
@@ -60,7 +61,7 @@ export const HomepageHeaders = ({ session }) => {
                 color="primary"
                 href="/register"
                 variant="ghost"
-                className="font-bold font-mono"
+                className="font-bold font-openSans"
               >
                 Sign Up
               </Button>
