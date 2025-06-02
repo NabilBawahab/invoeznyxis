@@ -3,7 +3,6 @@ import "./globals.css";
 import { Providers } from "@/components/shared/providers";
 import { image } from "@heroui/react";
 import { icons } from "@dicebear/collection";
-import { google } from "@/utils/arctic";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,8 +22,8 @@ const openSans = Open_Sans({
 export const metadata = {
   title: "InvoEz - Free Online Invoice with AI Powered",
   description: "FREE ONLINE INVOICE WITH AI",
-  verification: { google: "vxkT65BH8hivQjeN53_2PRWWeJuxdxs-3ECivuTNmpg" },
   icons: "/favicon.ico",
+  verification: { google: "vxkT65BH8hivQjeN53_2PRWWeJuxdxs-3ECivuTNmpg" },
 };
 
 export default function RootLayout({ children }) {
