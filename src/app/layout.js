@@ -23,6 +23,7 @@ export const metadata = {
   title: "InvoEz - Free Online Invoice with AI Powered",
   description: "FREE ONLINE INVOICE WITH AI",
   icons: "/favicon.ico",
+  verification: { google: "vxkT65BH8hivQjeN53_2PRWWeJuxdxs-3ECivuTNmpg" },
 };
 
 export default function RootLayout({ children }) {
