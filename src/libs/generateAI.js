@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 export const generateAI = async (formData) => {
   try {
     const completion = await openai.chat.completions.create({
-      model: "deepseek/deepseek-chat:free",
+      model: "deepseek/deepseek-r1-distill-llama-70b:free",
       messages: [
         {
           role: "system",
